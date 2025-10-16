@@ -5,7 +5,6 @@ import React from 'react';
 function Footer({ onNavigate }) {
   return (
     <footer>
-        <div><Mountain /></div>
       <button onClick={() => onNavigate('home')}>Go Home</button>
       <button onClick={() => onNavigate('about')}>About</button>
     </footer>
