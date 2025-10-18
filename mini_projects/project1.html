@@ -1,0 +1,115 @@
+<script>
+  // ### expense tracker
+  // concept used conditionals and loops, arrays and methods, functions and objects
+
+  var num = parseInt(prompt("how many data you wanna store"));
+  var data = []; // this is array but we are storing key:pair means we are creating an array of object
+  // { category: category, date: date, amount: amount } this is one object and we age gong to store this in array making the array of object
+
+  function getData(num) {
+    //   var data = []; -> putting the data inside the function resets the data everytime the function is called
+
+    for (let i = 1; i <= num; i++) {
+      var category = prompt("category: ");
+      var date = prompt("date");
+      var amount = parseInt(prompt("amount"));
+      if (category == "" || date == "" || amount == "") {
+        // isNaN checks whether its number or not if vlaue is not number then it returns true this is to validate it mustnot be non number and null casue both returns true and triggers the alert.
+        alert("the data can't be empty");
+        if (amount <= 0) {
+          alert("enter valid positive number");
+        }
+      } else {
+        // data is array and push is the method of array
+        data.push({
+          // the first category before the colon is the key the name of the property in the object, second category is the value of var we created
+
+          category: category,
+          date: date,
+          amount: amount,
+        });
+        // alert(data.toString());
+        console.table(data);
+      }
+    }
+  }
+
+  function display() {
+    for (let expense of data) {
+      alert("categories " + expense.category); //here expense is just a localvariable like i and j used in cpp and this var have access to array because of "for ... of " loop
+      alert("dates " + expense.date);
+      // alert(expense.amount);
+    }
+    totalExpense();
+  }
+
+  function totalExpense() {
+    let sum = 0;
+    //  same as  "for (let expense of data)"
+    for (let amt of data) {
+      sum += amt.amount;
+    }
+    alert("total amount you spent is " + sum);
+  }
+
+  function filterByCategory() {
+    var filterByName = prompt("enter cactegory you want to filter out");
+    let filtered = data.filter(function (expense) {
+      return expense.category === filterByName; // filter () only loops through elements 'return expense.category=== filterByName;' this checks is this expense.category exactly equal to the user input (filterByName)
+    });
+
+    console.table(filtered);
+    for (let filteredData of filtered) {
+      alert("category: " + filteredData.category);
+      alert("date: " + filteredData.date);
+      function totalExpenseOfFiltered() {
+        let sum = 0;
+        for (let amt of filtered) {
+          sum += amt.amount;
+        }
+        alert("total amount you spent is " + sum);
+      }
+    }
+    totalExpenseOfFiltered();
+    //data is the array of object we made
+    // filter() is a built-in array method. It loops through each element of the data array and returns a new array containing only the elements for which the callback function returns true.
+    // HERE WE ARE USING ANONYMOUS CALLBACK FUNCTION
+    // a function is called callback function when a function was passes as an argument to another function, with the intendation to be executed after the completion s specific task
+    // HERE a ANONYMOUS callback function is passed as an argument of filter() function so that anonymous function is called callback funciton
+    // A callback function is simply a function you pass as an argument to another function.
+    // why we did this because :
+    // think of like if a method (filter() in this case ) that returns value , since methods are function too, these methods cant directly contain return syntax so they need function with temporary local variable to return the value and store to the variable
+    // what is happening is that filter() will gonna loop and store the value to temporary local var (expense )we passed as argument
+  }
+
+  function ifDisplay() {
+    var ifDisplay = prompt(
+      "want me to display expenses by the dates and total amount you spent 'y/n' "
+    );
+    if (ifDisplay == "y") {
+      display();
+    } else if (ifDisplay == "n") {
+      alert("okay");
+    } else {
+      alert("error");
+    }
+  }
+
+  function ifFilter() {
+    var ifFilter = prompt("want to filter through categories:'y/n'");
+    if (ifFilter == "y") {
+      filterByCategory();
+    } else if (ifFilter == "n") {
+      alert("okay");
+    } else {
+      alert("error");
+    }
+  }
+  // 1
+  getData(num);
+
+  // 2
+  ifDisplay();
+  // 3
+  ifFilter();
+</script>
